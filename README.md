@@ -36,7 +36,6 @@
  
 ### Association
 
-- has_many :comments
 - has_one :purchase
 - belongs_to :user
 - belongs_to :category
