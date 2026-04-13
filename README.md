@@ -6,7 +6,10 @@
 | ------------------ | ------ | ----------- |
 | email              | string | null: false, unique: true |
 | encrypted_password | string | null: false |
-| name               | string | null: false |
+| family_name_kanji  | string | null: false |
+| given_name_kanji   | string | null: false |
+| family_name_kana   | string | null: false |
+| given_name_kana    | string | null: false |
 | nickname           | string | null: false |
 | birth_date         | date   | null: false |
 
@@ -14,7 +17,6 @@
 
 - has_many :items
 - has_many :purchases
-- has_many :comments
 
 
 
@@ -30,7 +32,7 @@
 | prefecture_id          | integer    | null: false |
 | scheduled_delivery_id  | integer    | null: false |
 | item_price             | integer    | null: false |
-| user_id                | references | null: false, foreign_key: true |
+| user                   | references | null: false, foreign_key: true |
  
 ### Association
 
@@ -45,21 +47,6 @@
 
 
 
-## comments テーブル
-
-| Column  | Type       | Options                        |
-| ------- | ---------- | ------------------------------ |
-| text    | text       | null: false                    |
-| user    | references | null: false, foreign_key: true |
-| item    | references | null: false, foreign_key: true |
-
-### Association
-
-- belongs_to :user
-- belongs_to :item
-
-
-
 
 ## purchases テーブル
 
@@ -67,8 +54,6 @@
 | ------- | ---------- | ----------- |
 | user    | references | null: false, foreign_key: true |
 | item    | references | null: false, unique: true, foreign_key: true |
-| token   | string     | null: false |
-
 ### Association
 
 - belongs_to :user
