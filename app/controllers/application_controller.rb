@@ -12,8 +12,6 @@ class ApplicationController < ActionController::Base
                                         :family_name_kana,
                                         :given_name_kana,
                                         :"birth_date"
-                                        :"birth_date
-                                        :"birth_date
                                       ])
   end
 
