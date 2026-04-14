@@ -1,6 +1,21 @@
 class ApplicationController < ActionController::Base
-    before_action :basic_auth
+  before_action :basic_auth
+  before_action :configure_permitted_parameters, if: :devise_controller?
 
+  protected
+
+  def configure_permitted_parameters
+    devise_parameter_sanitizer.permit(:sign_up, keys: [
+      :nickname,
+      :family_name_kanji,
+      :given_name_kanji,
+      :family_name_kana,
+      :given_name_kana,
+      :"birth_date(1i)",
+      :"birth_date(2i)",
+      :"birth_date(3i)",
+    ])
+  end
 
   private
 
