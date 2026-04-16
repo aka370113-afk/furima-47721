@@ -2,6 +2,8 @@ class ItemsController < ApplicationController
   before_action :authenticate_user!, only: [:new, :create] # 未ログインは出品ページ・出品保存へ進めずログイン画面へ
 
   def index
+    # shipping_fee_status は ActiveHash のため includes 不可（DB にテーブルがない）
+    @items = Item.includes(image_attachment: :blob).newest_first
   end
 
   def new
