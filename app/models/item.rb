@@ -12,6 +12,12 @@ class Item < ApplicationRecord
   validates :image, presence: true
   validates :item_name, presence: true
   validates :item_info, presence: true
+  # ActiveHash 先の belongs_to は optional になりがちなため、必須は *_id で明示する
+  validates :category_id, presence: true
+  validates :item_status_id, presence: true
+  validates :shipping_fee_status_id, presence: true
+  validates :prefecture_id, presence: true
+  validates :scheduled_delivery_id, presence: true
 
   validates :item_price, presence: true
   validate :item_price_must_be_half_width_digits
