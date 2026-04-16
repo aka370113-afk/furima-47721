@@ -85,7 +85,7 @@
     <%# /配送について %>
 
     <%# 販売価格 %>
-    <div class="sell-price" data-controller="price-calculation">
+    <div class="sell-price">
       <div class="weight-bold-text question-text">
         <span>販売価格<br>(¥300〜9,999,999)</span>
         <a class="question" href="#">?</a>
@@ -97,18 +97,18 @@
             <span class="indispensable">必須</span>
           </div>
           <span class="sell-yen">¥</span>
-          <%= f.text_field :item_price, class: "price-input", id: "item-price", placeholder: "例）300", data: { price_calculation_target: "price", action: "input->price-calculation#update" } %>
+          <%= f.text_field :item_price, class: "price-input", id: "item-price", placeholder: "例）300" %>
         </div>
         <div class="price-content">
           <span>販売手数料 (10%)</span>
           <span>
-            <span id="add-tax-price" data-price-calculation-target="fee"></span>円
+            <span id="add-tax-price"></span>円
           </span>
         </div>
         <div class="price-content">
           <span>販売利益</span>
           <span>
-            <span id="profit" data-price-calculation-target="profit"></span>円
+            <span id="profit"></span>円
           </span>
         </div>
       </div>
