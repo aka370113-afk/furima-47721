@@ -8,7 +8,7 @@ require 'rspec/rails'
 
 Dir[Rails.root.join('spec/support/**/*.rb')].sort.each { |f| require f }
 
-I18n.locale = 'en'
+I18n.locale = "en"
 
 begin
   ActiveRecord::Migration.maintain_test_schema!

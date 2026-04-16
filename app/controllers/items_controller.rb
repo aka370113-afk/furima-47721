@@ -1,5 +1,5 @@
 class ItemsController < ApplicationController
-  before_action :authenticate_user!, only: [:new, :create] # ログインしていないユーザーを出品画面に行かせない
+  before_action :authenticate_user!, only: [:new, :create] # 未ログインは出品ページ・出品保存へ進めずログイン画面へ
 
   def index
   end
