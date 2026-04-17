@@ -1,6 +1,9 @@
 class Item < ApplicationRecord
   extend ActiveHash::Associations::ActiveRecordExtensions
 
+  # 一覧は出品日時が新しい順（左上から読む順と一致）
+  scope :newest_first, -> { order(created_at: :desc) }
+
   belongs_to :user
   belongs_to :category
   belongs_to :item_status
@@ -33,6 +36,6 @@ class Item < ApplicationRecord
     raw = read_attribute_before_type_cast(:item_price)
     return if raw.blank?
 
-    errors.add(:item_price, 'は半角数値で入力してください') unless raw.to_s.match?(/\A[0-9]+\z/)
+    errors.add(:item_price, "は半角数値で入力してください") unless raw.to_s.match?(/\A[0-9]+\z/)
   end
 end
