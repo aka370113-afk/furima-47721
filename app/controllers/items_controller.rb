@@ -19,6 +19,10 @@ class ItemsController < ApplicationController
     end
   end
 
+  def show
+    @item = Item.includes(:user, :purchase, image_attachment: :blob).find(params[:id])
+  end
+
   private
 
   def item_params

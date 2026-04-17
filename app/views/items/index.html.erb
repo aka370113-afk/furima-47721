@@ -129,7 +129,7 @@
     <ul class='item-lists'>
       <% @items.each do |item| %>
         <li class='list'>
-          <%= link_to "#" do %>
+          <%= link_to item_path(item) do %>
             <div class='item-img-content'>
               <% if item.image.attached? %>
                 <%= image_tag item.image.variant(resize_to_limit: [500, 500]), class: "item-img", alt: item.item_name %>
