@@ -35,16 +35,12 @@ class Item < ApplicationRecord
     purchase.present?
   end
 
-  def on_sale?
-    !sold?
-  end
-
   private
 
   def item_price_must_be_half_width_digits
     raw = read_attribute_before_type_cast(:item_price)
     return if raw.blank?
 
-    errors.add(:item_price, 'は半角数値で入力してください') unless raw.to_s.match?(/\A[0-9]+\z/)
+    errors.add(:item_price, "は半角数値で入力してください") unless raw.to_s.match?(/\A[0-9]+\z/)
   end
 end
