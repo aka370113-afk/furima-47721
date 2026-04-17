@@ -27,17 +27,17 @@
       </span>
     </div>
 
-    <% if user_signed_in? %>
-      <% unless @item.sold? %>
-        <% if current_user.id == @item.user_id %>
-          <%= link_to "商品の編集", "#", method: :get, class: "item-red-btn" %>
-          <p class="or-text">or</p>
-          <%= link_to "削除", "#", data: {turbo_method: :delete}, class: "item-destroy" %>
-        <% else %>
-          <%= link_to "購入画面に進む", "#", class: "item-red-btn" %>
-        <% end %>
-      <% end %>
+    <% if user_signed_in? && current_user.id == @item.user_id && @item.on_sale? %>
+      <%= link_to "商品の編集", "#", method: :get, class: "item-red-btn" %>
+      <p class="or-text">or</p>
+      <%= link_to "削除", "#", data: {turbo_method: :delete}, class: "item-destroy" %>
     <% end %>
+
+    <%# 商品が売れていない場合はこちらを表示しましょう %>
+    <% if user_signed_in? && current_user.id != @item.user_id && @item.on_sale? %>
+      <%= link_to "購入画面に進む", "#", class: "item-red-btn" %>
+    <% end %>
+    <%# //商品が売れていない場合はこちらを表示しましょう %>
 
     <div class="item-explain-box">
       <span><%= @item.item_info %></span>
