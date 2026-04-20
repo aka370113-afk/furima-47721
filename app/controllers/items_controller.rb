@@ -1,9 +1,9 @@
 class ItemsController < ApplicationController
   # 未ログインはログイン画面へ。edit/update は販売状況に関わらず（new/create も同様）
-  before_action :authenticate_user!, only: [:new, :create, :edit, :update]
-  before_action :set_item, only: [:show, :edit, :update]
+  before_action :authenticate_user!, only: [:new, :create, :edit, :update, :destroy]
+  before_action :set_item, only: [:show, :edit, :update, :destroy]
   # 出品者本人だけ edit/update 可。ログイン中でも他人の商品は販売状況に関わらずトップへ
-  before_action :redirect_unless_owner, only: [:edit, :update]
+  before_action :redirect_unless_owner, only: [:edit, :update, :destroy]
 
   def index
     # shipping_fee_status は ActiveHash のため includes 不可（DB にテーブルがない）
@@ -37,6 +37,11 @@ class ItemsController < ApplicationController
       # 保存されない。@item に送信値が載ったままなので、画像・手数料・利益以外の入力はフォームに残る
       render :edit, status: :unprocessable_entity
     end
+  end
+
+  def destroy
+    @item.destroy
+    redirect_to root_path
   end
 
   private
