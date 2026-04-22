@@ -11,7 +11,7 @@ class Item < ApplicationRecord
   belongs_to :prefecture
   belongs_to :scheduled_delivery
   has_one_attached :image
-  # has_one :purchase, dependent: :destroy
+  has_one :purchase, dependent: :destroy
 
   validates :image, presence: true
   validates :item_name, presence: true
