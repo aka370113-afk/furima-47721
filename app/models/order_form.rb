@@ -3,9 +3,15 @@ class OrderForm
 
   attr_accessor :postal_code, :prefecture_id, :city, :street, :building, :phone_number, :user_id, :item_id, :token
 
-  with_options presence: true do
-    validates :postal_code,
-              format: { with: /\A[0-9]{3}-[0-9]{4}\z/, message: "はハイフンを含む半角7桁で入力してください" }
+  # 配送先は購入の都度フォーム入力のみ（ユーザー登録情報からの自動入力はしない）
+
+  before_validation :normalize_address_inputs
+
+  POSTAL_CODE_REGEX = /\A[0-9]{3}-[0-9]{4}\z/.freeze
+  PHONE_REGEX = /\A[0-9]{10,11}\z/.freeze
+
+  with_options presence: { message: "を入力してください" } do
+    validates :postal_code
     validates :city
     validates :street
     validates :phone_number
@@ -14,9 +20,32 @@ class OrderForm
     validates :token
   end
 
-  validates :prefecture_id, numericality: { only_integer: true, greater_than: 0, message: "を選択してください" }
+  validates :prefecture_id, presence: { message: "を選択してください" }
+
+  validates :postal_code,
+            format: {
+              with: POSTAL_CODE_REGEX,
+              message: "は「3桁ハイフン4桁」の半角数字のみ入力してください（例: 123-4567）"
+            },
+            allow_blank: true
+
+  validates :prefecture_id,
+            numericality: {
+              only_integer: true,
+              greater_than: 0,
+              message: "を選択してください"
+            },
+            allow_nil: true
+
+  validates :phone_number,
+            format: {
+              with: PHONE_REGEX,
+              message: "は10桁以上11桁以内の半角数字のみ入力してください（例: 09012345678、ハイフンなし）"
+            },
+            allow_blank: true
 
   validate :item_must_be_purchasable
+  validate :prefecture_must_exist
 
   def save
     return false if invalid?
@@ -40,6 +69,28 @@ class OrderForm
   end
 
   private
+
+  def normalize_address_inputs
+    self.postal_code = postal_code.to_s.strip
+    self.phone_number = phone_number.to_s.strip
+    self.city = city.to_s.strip
+    self.street = street.to_s.strip
+    self.building = building.to_s.strip.presence
+
+    self.prefecture_id =
+      if prefecture_id.blank? || prefecture_id.to_s.strip.blank?
+        nil
+      else
+        prefecture_id.to_i
+      end
+  end
+
+  def prefecture_must_exist
+    return if prefecture_id.blank?
+    return if prefecture_id.to_i <= 0
+
+    errors.add(:prefecture_id, "を選択してください") if Prefecture.find_by(id: prefecture_id).blank?
+  end
 
   def item_must_be_purchasable
     item = Item.find_by(id: item_id)
