@@ -137,8 +137,11 @@
                 <%= image_tag "/images/test_image.png", class: "item-img", alt: "#{item.item_name}（画像なし）" %>
               <% end %>
 
-              <%# 商品が売れていればsold outを表示しましょう %>
-              <%# //商品が売れていればsold outを表示しましょう %>
+              <% if item.sold? %>
+                <div class="sold-out">
+                  <span>sold out</span>
+                </div>
+              <% end %>
             </div>
             <div class='item-info'>
               <h3 class='item-name'>
