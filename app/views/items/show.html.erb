@@ -7,16 +7,18 @@
       <%= @item.item_name %>
     </h2>
     <div class="item-img-content">
-      <% if @item.image.attached? %>
-        <%= image_tag @item.image.variant(resize_to_limit: [500, 500]), class: "item-box-img", alt: @item.item_name %>
-      <% else %>
-        <%= image_tag "/images/test_image.png", class: "item-box-img", alt: "#{@item.item_name}（画像なし）" %>
-      <% end %>
-      <% if @item.sold? %>
-        <div class="sold-out">
-          <span>sold out</span>
-        </div>
-      <% end %>
+      <div style="position:relative;display:inline-block;max-width:100%;overflow:hidden;line-height:0;">
+        <% if @item.image.attached? %>
+          <%= image_tag @item.image.variant(resize_to_limit: [500, 500]), class: "item-box-img", alt: @item.item_name %>
+        <% else %>
+          <%= image_tag "/images/test_image.png", class: "item-box-img", alt: "#{@item.item_name}（画像なし）" %>
+        <% end %>
+        <% if @item.sold? %>
+          <div class="sold-out">
+            <span>sold out</span>
+          </div>
+        <% end %>
+      </div>
     </div>
     <div class="item-price-box">
       <span class="item-price">
