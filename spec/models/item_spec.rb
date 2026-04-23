@@ -120,4 +120,25 @@ RSpec.describe Item, type: :model do
       end
     end
   end
+
+  describe '#sold?' do
+    let(:seller) { create(:user) }
+    let(:item) { create(:item, user: seller) }
+
+    context 'purchase がない場合' do
+      it 'false を返すこと' do
+        expect(item.sold?).to be false
+      end
+    end
+
+    context 'purchase がある場合' do
+      let(:buyer) { create(:user) }
+
+      before { create(:purchase, user: buyer, item: item) }
+
+      it 'true を返すこと' do
+        expect(item.reload.sold?).to be true
+      end
+    end
+  end
 end

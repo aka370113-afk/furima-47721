@@ -11,9 +11,7 @@ class OrdersController < ApplicationController
   end
 
   def create
-    if @item.user_id == current_user.id || @item.purchase.present?
-      redirect_to root_path and return
-    end
+    redirect_to root_path and return if @item.user_id == current_user.id || @item.purchase.present?
 
     @order_form = OrderForm.new(order_form_params)
     if @order_form.valid?
@@ -44,15 +42,15 @@ class OrdersController < ApplicationController
   end
 
   def set_gon_public_key
-    gon.public_key = ENV.fetch("PAYJP_PUBLIC_KEY", "")
+    gon.public_key = ENV.fetch('PAYJP_PUBLIC_KEY', '')
   end
 
   def pay_item
-    Payjp.api_key = ENV.fetch("PAYJP_SECRET_KEY", "")
+    Payjp.api_key = ENV.fetch('PAYJP_SECRET_KEY', '')
     Payjp::Charge.create(
       amount: @item.item_price,
       card: @order_form.token,
-      currency: "jpy"
+      currency: 'jpy'
     )
   end
 

@@ -8,6 +8,12 @@ require "active_support/core_ext/integer/time"
 Rails.application.configure do
   # Settings specified here will take precedence over those in config/application.rb.
 
+  # Active Job の未設定時デフォルトは :async（ThreadPoolExecutor）。
+  # テスト中に別スレッドで DB に触れると接続の所有スレッドとずれ、
+  # "Cannot expire connection, it is owned by a different thread" や
+  # ConnectionTimeoutError の原因になるため :test に固定する。
+  config.active_job.queue_adapter = :test
+
   # While tests run files are not watched, reloading is not necessary.
   config.enable_reloading = false
 
