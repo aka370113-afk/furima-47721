@@ -46,6 +46,12 @@ RSpec.describe OrderForm, type: :model do
         expect(@form.errors[:prefecture_id]).to include('を選択してください')
       end
 
+      it '都道府県が未選択（nil）の場合は無効であること' do
+        @form.prefecture_id = nil
+        @form.valid?
+        expect(@form.errors[:prefecture_id]).to include('を選択してください')
+      end
+
       it '市区町村が空では無効であること' do
         @form.city = ''
         @form.valid?
