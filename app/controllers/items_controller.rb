@@ -4,10 +4,12 @@ class ItemsController < ApplicationController
   before_action :set_item, only: [:show, :edit, :update, :destroy]
   # 出品者本人だけ edit/update 可。ログイン中でも他人の商品は販売状況に関わらずトップへ
   before_action :redirect_unless_owner, only: [:edit, :update, :destroy]
+  # 売却済みは編集不可（出品者本人でもトップへ）
+  before_action :redirect_if_sold, only: [:edit, :update]
 
   def index
     # shipping_fee_status は ActiveHash のため includes 不可（DB にテーブルがない）
-    @items = Item.includes(image_attachment: :blob).newest_first
+    @items = Item.includes(:purchase, image_attachment: :blob).newest_first
   end
 
   def new
@@ -47,7 +49,11 @@ class ItemsController < ApplicationController
   private
 
   def set_item
-    @item = Item.includes(:user, image_attachment: :blob).find(params[:id])
+    @item = Item.includes(:user, :purchase, image_attachment: :blob).find(params[:id])
+  end
+
+  def redirect_if_sold
+    redirect_to root_path if @item.purchase.present?
   end
 
   def redirect_unless_owner

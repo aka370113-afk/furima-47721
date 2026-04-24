@@ -117,6 +117,7 @@ GEM
       responders
       warden (~> 1.2.3)
     diff-lcs (1.6.2)
+    domain_name (0.6.20240107)
     drb (2.2.3)
     erb (6.0.2)
     erubi (1.13.1)
@@ -130,6 +131,14 @@ GEM
     ffi (1.17.4-x86_64-linux-gnu)
     globalid (1.3.0)
       activesupport (>= 6.1)
+    gon (7.0.0)
+      actionpack (>= 3.0.20)
+      activesupport
+      i18n (>= 0.7)
+      multi_json
+    http-accept (1.7.0)
+    http-cookie (1.1.6)
+      domain_name (~> 0.5)
     i18n (1.14.8)
       concurrent-ruby (~> 1.0)
     image_processing (1.14.0)
@@ -162,6 +171,10 @@ GEM
       net-smtp
     marcel (1.1.0)
     matrix (0.4.3)
+    mime-types (3.7.0)
+      logger
+      mime-types-data (~> 3.2025, >= 3.2025.0507)
+    mime-types-data (3.2026.0414)
     mini_magick (5.3.1)
       logger
     mini_mime (1.1.5)
@@ -169,6 +182,7 @@ GEM
       drb (~> 2.0)
       prism (~> 1.5)
     msgpack (1.8.0)
+    multi_json (1.20.1)
     mutex_m (0.3.0)
     mysql2 (0.5.7)
       bigdecimal
@@ -181,6 +195,7 @@ GEM
       timeout
     net-smtp (0.5.1)
       net-protocol
+    netrc (0.11.0)
     nio4r (2.7.5)
     nokogiri (1.19.2-x86_64-linux-gnu)
       racc (~> 1.4)
@@ -189,6 +204,9 @@ GEM
     parser (3.3.11.1)
       ast (~> 2.4.1)
       racc
+    payjp (1.1.7)
+      base64
+      rest-client (~> 2.0)
     pg (1.6.3-x86_64-linux)
     pp (0.6.3)
       prettyprint
@@ -252,6 +270,11 @@ GEM
     responders (3.2.0)
       actionpack (>= 7.0)
       railties (>= 7.0)
+    rest-client (2.1.0)
+      http-accept (>= 1.7.0, < 2.0)
+      http-cookie (>= 1.0.2, < 2.0)
+      mime-types (>= 1.16, < 4.0)
+      netrc (~> 0.8)
     rexml (3.4.4)
     rspec-core (3.13.6)
       rspec-support (~> 3.13.0)
@@ -344,11 +367,13 @@ DEPENDENCIES
   devise
   factory_bot_rails (~> 6.4)
   faker (~> 3.2)
+  gon
   image_processing (~> 1.2)
   importmap-rails
   jbuilder
   mini_magick
   mysql2 (~> 0.5)
+  payjp
   pg
   puma (>= 5.0)
   rails (~> 7.1.0)

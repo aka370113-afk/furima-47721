@@ -11,7 +11,11 @@ class Item < ApplicationRecord
   belongs_to :prefecture
   belongs_to :scheduled_delivery
   has_one_attached :image
-  # has_one :purchase, dependent: :destroy
+  has_one :purchase, dependent: :destroy
+
+  def sold?
+    purchase.present?
+  end
 
   validates :image, presence: true
   validates :item_name, presence: true
@@ -41,6 +45,6 @@ class Item < ApplicationRecord
     raw = read_attribute_before_type_cast(:item_price)
     return if raw.blank?
 
-    errors.add(:item_price, "は半角数値で入力してください") unless raw.to_s.match?(/\A[0-9]+\z/)
+    errors.add(:item_price, 'は半角数値で入力してください') unless raw.to_s.match?(/\A[0-9]+\z/)
   end
 end

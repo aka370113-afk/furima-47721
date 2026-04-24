@@ -25,12 +25,32 @@
   font-size: 25px;
 }
 
+.item-img-content {
+  position: relative;
+  width: 60vw;
+}
+
 .item-box-img {
   height: 50vh;
   width: 60vw;
   min-height: 500px;
   background-color: rgb(205, 202, 202);
   object-fit: contain;
+}
+
+.item-img-content .sold-out {
+  position: absolute;
+  top: 40%;
+  width: 100%;
+  text-align: center;
+  background-color: crimson;
+  transform: skewY(-10deg);
+}
+
+.item-img-content .sold-out > span {
+  color: #fff;
+  font-size: 45px;
+  font-weight: bold;
 }
 
 .item-price-box {

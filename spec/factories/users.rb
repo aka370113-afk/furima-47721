@@ -2,10 +2,10 @@
 
 FactoryBot.define do
   factory :user do
+    nickname { Faker::Name.initials(number: 2) }
     email { Faker::Internet.unique.email }
     password { 'abc123' }
-    password_confirmation { 'abc123' }
-    sequence(:nickname) { |n| "nick#{n}" }
+    password_confirmation { password }
     family_name_kanji { '山田' }
     given_name_kanji { '太郎' }
     family_name_kana { 'ヤマダ' }
