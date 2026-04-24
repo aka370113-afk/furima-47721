@@ -3,8 +3,7 @@ class OrdersController < ApplicationController
   before_action :set_item
 
   def index
-    redirect_to root_path if @item.user_id == current_user.id
-    redirect_to root_path if @item.purchase.present?
+    redirect_to root_path and return if @item.user_id == current_user.id || @item.purchase.present?
 
     set_gon_public_key
     @order_form = OrderForm.new
