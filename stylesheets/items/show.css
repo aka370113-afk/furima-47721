@@ -40,17 +40,34 @@
 
 .item-img-content .sold-out {
   position: absolute;
-  top: 40%;
-  width: 100%;
+  top: 50%;
+  left: 50%;
+  z-index: 2;
+  width: 152%;
+  padding: 22px 0;
   text-align: center;
-  background-color: crimson;
-  transform: skewY(-10deg);
+  background-color: #ea352d;
+  transform: translate(-50%, -50%) rotate(-17deg);
+  box-sizing: border-box;
+  pointer-events: none;
 }
 
 .item-img-content .sold-out > span {
+  display: inline-block;
   color: #fff;
-  font-size: 45px;
   font-weight: bold;
+  font-family: system-ui, -apple-system, "Segoe UI", roboto, "Helvetica Neue", sans-serif;
+  letter-spacing: 0.04em;
+  line-height: 1.2;
+  font-size: clamp(22px, 4vh, 44px);
+}
+
+.item-lists .item-img-content .sold-out > span {
+  font-size: clamp(21px, 3.6vh, 38px);
+}
+
+.item-show .item-img-content .sold-out > span {
+  font-size: clamp(28px, 4.5vmin, 58px);
 }
 
 .item-price-box {

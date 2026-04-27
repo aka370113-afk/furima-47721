@@ -18,9 +18,11 @@ const pay = () => {
     e.preventDefault();
     payjp.createToken(numberElement).then(function (response) {
       if (response.error) {
-        window.alert(
-          "カード情報を確認してください: " + (response.error.message || "")
-        );
+        const renderDom = document.getElementById("charge-form");
+        const existing = renderDom.querySelector('input[name="token"]');
+        if (existing) existing.remove();
+        // submit イベントは発火しないため、サーバー側の token 必須チェックでエラーを表示できる
+        form.submit();
         return;
       }
       const token = response.id;

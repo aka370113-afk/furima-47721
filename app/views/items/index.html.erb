@@ -131,8 +131,7 @@
         <li class='list'>
           <%= link_to item_path(item), style: "display:block;color:inherit;" do %>
             <div class='item-img-content'>
-              <%# CSSは触らず、画像＋sold-out だけをインラインでクリップ（skew のはみ出しを隣カードに出さない） %>
-              <div style="position:relative;width:33vh;height:33vh;overflow:hidden;">
+              <div style="position:relative;width:33vh;height:33vh;overflow:hidden;line-height:0;">
                 <% if item.image.attached? %>
                   <%= image_tag item.image.variant(resize_to_limit: [500, 500]), class: "item-img", alt: item.item_name %>
                 <% else %>
@@ -141,7 +140,7 @@
 
                 <% if item.sold? %>
                   <div class="sold-out">
-                    <span>sold out</span>
+                    <span>Sold Out!!</span>
                   </div>
                 <% end %>
               </div>
@@ -166,7 +165,7 @@
         <li class='list'>
           <%= link_to "#", style: "display:block;color:inherit;" do %>
             <div class='item-img-content'>
-              <div style="position:relative;width:33vh;height:33vh;overflow:hidden;">
+              <div style="position:relative;width:33vh;height:33vh;overflow:hidden;line-height:0;">
                 <%= image_tag "/images/test_image.png", class: "item-img", alt: "商品を出品してね！" %>
               </div>
             </div>
